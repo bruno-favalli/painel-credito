@@ -1,11 +1,11 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyBi4OhSL9ULkiu1sczhATWbpXvDRUkiLo8',
-    authDomain: 'projeto-credito2.firebaseapp.com',
-    projectId: 'projeto-credito2',
-    storageBucket: 'projeto-credito2.firebasestorage.app',
-    messagingSenderId: '248607767436',
-    appId: '1:248607767436:web:18700f9e92d799b557b4a9',
+    apiKey: 'AIzaSyDCDSBbSAoxdl1gK-jZuHSpdN1tib_aL7k',
+    authDomain: 'painel-credito-34bfb.firebaseapp.com',
+    projectId: 'painel-credito-34bfb',
+    storageBucket: 'painel-credito-34bfb.firebasestorage.app',
+    messagingSenderId: '782799077749',
+    appId: '1:782799077749:web:b6c798934524d37f14d33c',
   },
 };

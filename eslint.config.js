@@ -27,6 +27,17 @@ export default [
   },
   {
     files: ['*.html'],
-    rules: {}
+    rules: {
+'no-console': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_'
+      }
+    ]
+}
   }
 ];

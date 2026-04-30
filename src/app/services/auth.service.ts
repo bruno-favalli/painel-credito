@@ -1,13 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import {
   Auth,
   GoogleAuthProvider,
   User,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from '@angular/fire/auth';
+import { authState } from '@angular/fire/auth';
 
 export type LoginProvider = 'email' | 'google';
 
@@ -18,23 +18,22 @@ export interface AccessInfo {
   userAgent: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
+  private auth = inject(Auth); // ✅ AQUI está a correção principal
+
   usuario = signal<User | null>(null);
   carregando = signal(true);
   erro = signal<string | null>(null);
   ultimoAcesso = signal<AccessInfo | null>(null);
-
   isAuthenticated = signal(false);
 
   private accessStorageKey = 'ultimo_acesso';
 
-  constructor(private auth: Auth) {
+  constructor() {
     this.carregarUltimoAcesso();
 
-    onAuthStateChanged(this.auth, (user) => {
+    authState(this.auth).subscribe((user) => {
       this.usuario.set(user);
       this.isAuthenticated.set(!!user);
       this.carregando.set(false);
@@ -58,7 +57,9 @@ export class AuthService {
       this.registrarAcesso('email', credencial.user.email);
 
       return credencial.user;
-    } catch {
+    } catch (error: unknown) {
+      console.error('Erro Firebase Auth:', error);
+
       this.erro.set('Não foi possível entrar. Verifique email e senha.');
       this.isAuthenticated.set(false);
       return null;
@@ -77,8 +78,13 @@ export class AuthService {
       this.registrarAcesso('google', credencial.user.email);
 
       return credencial.user;
-    } catch {
-      this.erro.set('Não foi possível entrar com Google.');
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+
+      // Se não quiser mostrar detalhe técnico, não coloque message aqui
+      // this.erro.set('Não foi possível entrar. Verifique email e senha.');
+
+      this.erro.set(`Não foi possível entrar. (${message})`);
       this.isAuthenticated.set(false);
       return null;
     }
@@ -86,7 +92,6 @@ export class AuthService {
 
   async logout(): Promise<void> {
     await signOut(this.auth);
-
     this.usuario.set(null);
     this.isAuthenticated.set(false);
   }
@@ -97,20 +102,13 @@ export class AuthService {
 
   async getToken(): Promise<string | null> {
     const user = this.auth.currentUser;
-
-    if (!user) {
-      return null;
-    }
-
-    return user.getIdToken();
+    return user ? user.getIdToken() : null;
   }
 
   private carregarUltimoAcesso() {
     const acessoSalvo = localStorage.getItem(this.accessStorageKey);
 
-    if (!acessoSalvo) {
-      return;
-    }
+    if (!acessoSalvo) return;
 
     try {
       this.ultimoAcesso.set(JSON.parse(acessoSalvo));

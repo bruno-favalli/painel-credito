@@ -23,14 +23,30 @@ export class SolicitacaoItemComponent {
   ) {}
 
   irParaDetalhe() {
+    if (!this.solicitacao.id) {
+      return;
+    }
+
     this.router.navigate(['/solicitacoes', this.solicitacao.id]);
   }
 
   editar() {
+    if (!this.solicitacao.id) {
+      return;
+    }
+
     this.router.navigate(['/solicitacoes/editar', this.solicitacao.id]);
   }
 
   deletar() {
-    this.facade.deletar(this.solicitacao.id);
+    if (!this.solicitacao.id) {
+      return;
+    }
+
+    const confirmado = confirm('Tem certeza que deseja deletar esta solicitação?');
+
+    if (confirmado) {
+      this.facade.deletar(this.solicitacao.id);
+    }
   }
 }

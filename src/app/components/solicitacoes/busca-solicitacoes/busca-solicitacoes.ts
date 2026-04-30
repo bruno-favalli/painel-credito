@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   standalone: true,
   imports: [TranslatePipe],
   templateUrl: './busca-solicitacoes.html',
+  styleUrl: './busca-solicitacoes.scss',
 })
 export class BuscaSolicitacoesComponent {
   @Output() buscaChange = new EventEmitter<string>();

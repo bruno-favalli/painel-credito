@@ -52,7 +52,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     .label {
       color: #6c757d;
       font-size: 16px;
@@ -83,25 +83,39 @@
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.1s, opacity 0.2s;
+    transition:
+      transform 0.1s,
+      opacity 0.2s;
 
     &:active {
       transform: scale(0.98);
+    }
+  }
+  .btn-analisar {
+    background-color: #2563eb; // Azul
+    color: #ffffff;
+
+    &:hover {
+      background-color: #1d4ed8;
     }
   }
 
   .btn-aprovar {
     background-color: #d1fae5; // Verde claro igual ao badge
     color: #065f46;
-    
-    &:hover { background-color: #a7f3d0; }
+
+    &:hover {
+      background-color: #a7f3d0;
+    }
   }
 
   .btn-reprovar {
     background-color: #fee2e2; // Vermelho claro
     color: #991b1b;
 
-    &:hover { background-color: #fecaca; }
+    &:hover {
+      background-color: #fecaca;
+    }
   }
 }
 
@@ -114,6 +128,15 @@
   text-transform: uppercase;
 }
 
-.card__status--pendente { background: #fef3c7; color: #92400e; }
-.card__status--aprovado { background: #d1fae5; color: #065f46; }
-.card__status--recusado { background: #fee2e2; color: #991b1b; }
+.card__status--pendente {
+  background: #fef3c7;
+  color: #92400e;
+}
+.card__status--aprovado {
+  background: #d1fae5;
+  color: #065f46;
+}
+.card__status--recusado {
+  background: #fee2e2;
+  color: #991b1b;
+}

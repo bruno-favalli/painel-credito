@@ -1,6 +1,7 @@
 {
   "APP": {
-    "TITLE": "Credit Requests Dashboard"
+    "TITLE": "Credit Requests Dashboard",
+    "SUBTITLE": "Manage and track credit requests"
   },
   "LOGIN": {
     "TITLE": "Sign in to the Credit Dashboard",
@@ -19,7 +20,10 @@
     "THEME": "Theme",
     "LIGHT": "Light",
     "DARK": "Dark",
-    "LOGOUT": "Sign out"
+    "LOGOUT": "Sign out",
+    "LOGIN_TYPE": "Login type",
+    "LOGIN_PROVIDER": "Provider",
+    "LAST_ACCESS": "Last access"
   },
   "FORM": {
     "NEW": "New Request",
@@ -27,6 +31,9 @@
     "CLIENT": "Client name",
     "CPF": "CPF",
     "VALUE": "Requested amount",
+    "PLACEHOLDER_CLIENT": "Enter client name",
+    "PLACEHOLDER_CPF": "Enter only the 11 digits of the CPF",
+    "PLACEHOLDER_VALUE": "Enter requested amount",
     "SAVE": "Save",
     "CANCEL": "Cancel",
     "ERROR_NAME": "Name is required.",
@@ -39,20 +46,33 @@
     "ANALYZE": "Review",
     "DELETE": "Delete",
     "LOGOUT": "Sign out",
-    "PROFILE": "Profile"
+    "PROFILE": "Profile",
+    "ACTIVITIES": "Activities"
   },
   "REQUEST": {
     "DATE": "Request Date"
   },
   "SEARCH": {
-  "PLACEHOLDER": "Search client"
-},
-"FILTER": {
-  "ALL": "All"
-},
-"STATUS": {
-  "PENDING": "Pending",
-  "APPROVED": "Approved",
-  "REJECTED": "Rejected"
-}
+    "PLACEHOLDER": "Search client"
+  },
+  "FILTER": {
+    "ALL": "All"
+  },
+  "STATUS": {
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
+  },
+  "ACCESSIBILITY": {
+    "OPEN_REQUEST": "Open request details for",
+    "EDIT_REQUEST": "Edit request for",
+    "ANALYZE_REQUEST": "Analyze request for",
+    "DELETE_REQUEST": "Delete request for"
+  },
+  "FEEDBACK": {
+    "REQUEST_CREATED": "Request created successfully.",
+    "REQUEST_UPDATED": "Request updated successfully.",
+    "STATUS_UPDATED": "Status updated successfully.",
+    "REQUEST_DELETED": "Request deleted successfully."
+  }
 }
