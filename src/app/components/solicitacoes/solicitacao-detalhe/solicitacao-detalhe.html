@@ -1,0 +1,49 @@
+<div class="detalhe-container">
+  <button class="btn-back" routerLink="/solicitacoes">← Voltar para a lista</button>
+
+  @if (item(); as solicitacao) {
+    <header class="detalhe-header">
+      <h1>{{ solicitacao.cliente }}</h1>
+
+      <span class="status-badge" [ngClass]="solicitacao.statusClass">
+        {{ solicitacao.statusLabel }}
+      </span>
+    </header>
+
+    <section class="detalhe-content">
+      <div class="info-group">
+        <span class="label">Documento</span>
+        <span class="value">{{ solicitacao.documento }}</span>
+      </div>
+
+      <div class="info-group">
+        <span class="label">Valor Solicitado</span>
+        <span class="value value--destaque">
+          {{ solicitacao.valor | currency: 'BRL' }}
+        </span>
+      </div>
+
+      <div class="info-group">
+        <span class="label">Data da Solicitação</span>
+        <span class="value">
+          {{ solicitacao.dataSolicitacao | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </section>
+
+    <div class="detalhe-actions">
+      <button type="button" class="btn-aprovar" (click)="aprovar()">
+        {{ 'FORM.SAVE' | translate }}
+      </button>
+
+      <button type="button" class="btn-reprovar" (click)="reprovar()">
+        {{ 'FORM.CANCEL' | translate }}
+      </button>
+      <button type="button" class="btn-analisar" (click)="analisar()">
+        {{ 'FORM.ANALISE' | translate }}
+      </button>
+    </div>
+  } @else {
+    <p>Carregando solicitação...</p>
+  }
+</div>

@@ -1,5 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root,
+body.light-theme {
+  --page-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --text-main: #1a1a2e;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --hover-bg: #f9fafb;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-theme {
+  --page-bg: #0f172a;
+  --card-bg: #111827;
+  --input-bg: #1f2937;
+  --text-main: #f9fafb;
+  --text-muted: #cbd5e1;
+  --border: #374151;
+  --hover-bg: #1f2937;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
 
 * {
   margin: 0;
@@ -7,10 +29,37 @@
   box-sizing: border-box;
 }
 
+html {
+  background: var(--page-bg);
+}
+
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f8fafc;
-  color: #1a1a2e;
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text-main);
+  font-family: 'Inter', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+[role='button']:focus {
+  outline: 3px solid rgba(99, 102, 241, 0.45);
+  outline-offset: 2px;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem;
 }

@@ -3,8 +3,13 @@
   border-radius: 12px;
   padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   border: 1px solid #e8e8e8;
+
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -34,6 +39,7 @@
     border-radius: 20px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    cursor: pointer;
   }
 
   &__body {
@@ -64,9 +70,59 @@
       color: #1a1a2e;
     }
   }
+
+  /* ÁREA DE AÇÕES SEPARADA */
+  &__acoes {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  &__acoes button {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  /* BOTÃO EDITAR */
+  &__acoes button:first-child {
+    background-color: #2563eb;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #1d4ed8;
+    }
+  }
+
+  /* BOTÃO ANALISAR */
+
+  &__acoes button {
+    background-color: #5b21b6; // roxo base (entre o azul e o vermelho)
+    color: #ffffff;
+
+    &:hover {
+      background-color: #6b357a; // roxo mais quente (puxa pro vermelho sem virar excluir)
+    }
+  }
+
+  /* BOTÃO EXCLUIR */
+  &__acoes button:last-child {
+    background-color: #dc2626;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #b91c1c;
+    }
+  }
 }
 
-.status {
+/* STATUS (FORA DO BLOCO PARA FUNCIONAR COM ngClass) */
+.card__status {
   &--pendente {
     background-color: #fef3c7;
     color: #92400e;

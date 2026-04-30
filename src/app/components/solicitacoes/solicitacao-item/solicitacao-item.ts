@@ -1,33 +1,52 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Solicitacao } from '../../../models/solicitacao.model';
+import { Router } from '@angular/router';
+
+import { SolicitacaoViewModel } from '../../../services/graphql.service';
+import { SolicitacoesFacade } from '../../../services/solicitacoes.facade';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-solicitacao-item',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './solicitacao-item.html',
-  styleUrl: './solicitacao-item.scss'
+  styleUrls: ['./solicitacao-item.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SolicitacaoItemComponent {
-  @Input({ required: true }) solicitacao!: Solicitacao;
+  @Input({ required: true }) solicitacao!: SolicitacaoViewModel;
 
-  get statusClass(): string {
-    const classMap: Record<string, string> = {
-      pendente: 'status--pendente',
-      em_analise: 'status--analise',
-      aprovado: 'status--aprovado',
-      recusado: 'status--recusado'
-    };
-    return classMap[this.solicitacao.status] ?? '';
+  constructor(
+    private router: Router,
+    private facade: SolicitacoesFacade,
+  ) {}
+
+  irParaDetalhe() {
+    if (!this.solicitacao.id) {
+      return;
+    }
+
+    this.router.navigate(['/solicitacoes', this.solicitacao.id]);
   }
 
-  get statusLabel(): string {
-    const labelMap: Record<string, string> = {
-      pendente: 'Pendente',
-      em_analise: 'Em Análise',
-      aprovado: 'Aprovado',
-      recusado: 'Recusado'
-    };
-    return labelMap[this.solicitacao.status] ?? this.solicitacao.status;
+  editar() {
+    if (!this.solicitacao.id) {
+      return;
+    }
+
+    this.router.navigate(['/solicitacoes/editar', this.solicitacao.id]);
+  }
+
+  deletar() {
+    if (!this.solicitacao.id) {
+      return;
+    }
+
+    const confirmado = confirm('Tem certeza que deseja deletar esta solicitação?');
+
+    if (confirmado) {
+      this.facade.deletar(this.solicitacao.id);
+    }
   }
 }

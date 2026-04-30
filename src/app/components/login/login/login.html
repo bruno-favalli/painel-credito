@@ -1,0 +1,52 @@
+<div class="login">
+  <div class="login__container">
+    <div class="login__card">
+      <h2>Acesso</h2>
+
+      <form class="login__form" (ngSubmit)="login()" novalidate>
+        <label class="login__label" for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder="Digite seu email"
+          class="login__input"
+          [(ngModel)]="email"
+          autocomplete="email"
+        />
+
+        <label class="login__label" for="senha">Senha</label>
+        <input
+          id="senha"
+          type="password"
+          name="senha"
+          placeholder="Digite sua senha"
+          class="login__input"
+          [(ngModel)]="senha"
+          autocomplete="current-password"
+        />
+
+        @if (authService.erro()) {
+          <p class="login__error" aria-live="polite">
+            {{ authService.erro() }}
+          </p>
+        }
+
+        <button class="login__button" type="submit" [disabled]="carregando">
+          {{ carregando ? 'Entrando...' : 'Entrar' }}
+        </button>
+
+        <button
+          class="login__button login__button--google"
+          type="button"
+          (click)="loginComGoogle()"
+          [disabled]="carregando"
+        >
+          Entrar com Google
+        </button>
+      </form>
+
+      <p class="login__footer">Ambiente interno • Uso corporativo</p>
+    </div>
+  </div>
+</div>

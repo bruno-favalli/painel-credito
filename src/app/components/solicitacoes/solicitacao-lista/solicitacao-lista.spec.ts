@@ -1,18 +1,36 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePtBr from '@angular/common/locales/pt';
+import { of } from 'rxjs';
 
-import { SolicitacaoLista } from './solicitacao-lista';
+import { SolicitacaoListaComponent } from './solicitacao-lista';
+import { SolicitacoesService } from '../../../services/graphql.service';
 
-describe('SolicitacaoLista', () => {
-  let component: SolicitacaoLista;
-  let fixture: ComponentFixture<SolicitacaoLista>;
+registerLocaleData(localePtBr);
+
+describe('SolicitacaoListaComponent', () => {
+  let component: SolicitacaoListaComponent;
+  let fixture: ComponentFixture<SolicitacaoListaComponent>;
+  let mockSolicitacoesService: jasmine.SpyObj<SolicitacoesService>;
 
   beforeEach(async () => {
+    mockSolicitacoesService = jasmine.createSpyObj('SolicitacoesService', ['carregarSolicitacoes'], {
+      loading: jasmine.createSpy('loading').and.returnValue(false),
+      solicitacoes: jasmine.createSpy('solicitacoes').and.returnValue([]),
+      error: jasmine.createSpy('error').and.returnValue(null)
+    });
+
     await TestBed.configureTestingModule({
-      imports: [SolicitacaoLista]
+      imports: [SolicitacaoListaComponent],
+      providers: [
+        provideZonelessChangeDetection(),
+        { provide: SolicitacoesService, useValue: mockSolicitacoesService }
+      ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SolicitacaoLista);
+    fixture = TestBed.createComponent(SolicitacaoListaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,3 +39,4 @@ describe('SolicitacaoLista', () => {
     expect(component).toBeTruthy();
   });
 });
+

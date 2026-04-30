@@ -1,18 +1,33 @@
-@if (isLoading) {
-  <div class="loading">
-    <div class="loading__spinner"></div>
-    <p class="loading__text">Carregando solicitações...</p>
-  </div>
-} @else {
-  @if (solicitacoes.length === 0) {
-    <div class="empty">
-      <p class="empty__text">Nenhuma solicitação encontrada.</p>
-    </div>
-  } @else {
-    <div class="lista">
-      @for (solicitacao of solicitacoes; track solicitacao.id) {
-        <app-solicitacao-item [solicitacao]="solicitacao" />
-      }
+<app-header [title]="'APP.TITLE' | translate"></app-header>
+
+<div class="page-container">
+  @if (facade.feedback()) {
+    <div class="feedback" aria-live="polite" role="status">
+      {{ facade.feedback() }}
     </div>
   }
-}
+
+  <app-resumo-solicitacoes [lista]="facade.listaFiltrada()"></app-resumo-solicitacoes>
+
+  <div class="top-bar">
+    <div class="left">
+      <button type="button" class="btn-novo" (click)="irParaNova()">
+        {{ 'ACTIONS.NEW_REQUEST' | translate }}
+      </button>
+
+      <app-busca-solicitacoes (buscaChange)="facade.aplicarBusca($event)"></app-busca-solicitacoes>
+    </div>
+
+    <div class="right">
+      <app-filtro-solicitacoes
+        (filtroChange)="facade.aplicarFiltro($event)"
+      ></app-filtro-solicitacoes>
+    </div>
+  </div>
+
+  <div class="lista">
+    <div *ngFor="let item of facade.listaFiltrada(); trackBy: trackById">
+      <app-solicitacao-item [solicitacao]="item"></app-solicitacao-item>
+    </div>
+  </div>
+</div>

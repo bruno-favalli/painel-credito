@@ -1,29 +1,74 @@
 <div class="card">
   <div class="card__header">
     <h3 class="card__cliente">{{ solicitacao.cliente }}</h3>
-    <span class="card__status" [class]="statusClass">
-      {{ statusLabel }}
+
+    <span
+      (click)="irParaDetalhe()"
+      class="card__status"
+      [ngClass]="solicitacao.statusClass"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="('ACCESSIBILITY.OPEN_REQUEST' | translate) + ' ' + solicitacao.cliente"
+    >
+      {{ solicitacao.statusLabel }}
     </span>
   </div>
 
   <div class="card__body">
     <div class="card__info">
-      <span class="card__label">Documento</span>
-      <span class="card__value">{{ solicitacao.documento }}</span>
-    </div>
-
-    <div class="card__info">
-      <span class="card__label">Valor Solicitado</span>
-      <span class="card__value card__value--destaque">
-        {{ solicitacao.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+      <span class="card__label">
+        {{ 'FORM.CPF' | translate }}
       </span>
-    </div>
 
-    <div class="card__info">
-      <span class="card__label">Data da Solicitação</span>
       <span class="card__value">
-        {{ solicitacao.dataSolicitacao | date:'dd/MM/yyyy' }}
+        {{ solicitacao.documento }}
       </span>
     </div>
+
+    <div class="card__info">
+      <span class="card__label">
+        {{ 'FORM.VALUE' | translate }}
+      </span>
+
+      <span class="card__value card__value--destaque">
+        {{ solicitacao.valor | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+      </span>
+    </div>
+
+    <div class="card__info">
+      <span class="card__label">
+        {{ 'REQUEST.DATE' | translate }}
+      </span>
+
+      <span class="card__value">
+        {{ solicitacao.dataSolicitacao | date: 'dd/MM/yyyy' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="card__acoes">
+    <button
+      type="button"
+      (click)="editar(); $event.stopPropagation()"
+      [attr.aria-label]="('ACCESSIBILITY.EDIT_REQUEST' | translate) + ' ' + solicitacao.cliente"
+    >
+      {{ 'ACTIONS.EDIT' | translate }}
+    </button>
+
+    <button
+      type="button"
+      (click)="irParaDetalhe(); $event.stopPropagation()"
+      [attr.aria-label]="('ACCESSIBILITY.ANALYZE_REQUEST' | translate) + ' ' + solicitacao.cliente"
+    >
+      {{ 'ACTIONS.ANALYZE' | translate }}
+    </button>
+
+    <button
+      type="button"
+      (click)="deletar(); $event.stopPropagation()"
+      [attr.aria-label]="('ACCESSIBILITY.DELETE_REQUEST' | translate) + ' ' + solicitacao.cliente"
+    >
+      {{ 'ACTIONS.DELETE' | translate }}
+    </button>
   </div>
 </div>
